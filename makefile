@@ -46,3 +46,7 @@ app-enter-image:
 
 app-enter-container:
 	docker exec -it checkout_svc sh
+
+
+test-integration:
+	go test -v ./test/integration/... -count=1

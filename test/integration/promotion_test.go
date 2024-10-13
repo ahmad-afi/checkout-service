@@ -18,6 +18,5 @@ func TestGetPromotion(t *testing.T) {
 
 	bytes, err := io.ReadAll(response.Body)
 	assert.Nil(t, err)
-	fmt.Println("bytes", string(bytes))
-	// assert.Equal(t, "Hello World", string(bytes))
+	fmt.Println("resp", string(bytes))
 }

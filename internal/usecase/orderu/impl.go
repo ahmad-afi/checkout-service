@@ -528,7 +528,7 @@ func (u *OrderUsecase) calculateDiscount(ctx context.Context, mapProductDetail m
 								SKU:           dataProduct[0].SKU,
 								Name:          dataProduct[0].Name,
 								Price:         dataProduct[0].Price,
-								Qty:           totalFreeProductQty,
+								Qty:           dataProduct[0].Qty,
 								QtyToBuy:      totalFreeProductQty,
 								TotalAmount:   dataProduct[0].Price * float64(totalFreeProductQty),
 								TotalDiscount: disc,
