@@ -19,21 +19,6 @@ import (
 
 func HTTPRouteInit(containerConf *container.Container) {
 	app := fiber.New()
-	// logger := zerolog.New(os.Stdout).With().Timestamp().Logger()
-
-	// app.Use(fiberzerolog.New(fiberzerolog.Config{
-	// 	Logger: &logger,
-	// }))
-
-	// app.Get("/", func(c *fiber.Ctx) error {
-	// 	return c.SendString("Hello, World!")
-	// })
-
-	// if err := app.Listen(":3000"); err != nil {
-	// 	logger.Fatal().Err(err).Msg("Fiber app error")
-	// }
-	// app := fiber.New()
-	// app.Use(logger.New())
 	app.Use(cors.New())
 	app.Use(recover.New())
 	app.Use(requestid.New())
@@ -46,7 +31,6 @@ func HTTPRouteInit(containerConf *container.Container) {
 	}))
 
 	setupRouter(app, *containerConf)
-	// TODO VALIDATOR
 
 	// Start server
 	port := fmt.Sprintf("%s:%d", containerConf.Apps.Host, containerConf.Apps.HttpPort)
