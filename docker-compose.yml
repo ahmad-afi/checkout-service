@@ -12,7 +12,7 @@ services:
       - pg_checkout_svc_network
 
 networks:
-  pg_checkout_svc_network: {}
+  pg_checkout_svc_network: { name: pg_checkout_svc_network }
 
 volumes:
-  pg_checkout_svc_volumes: {}
+  pg_checkout_svc_volumes: { name: pg_checkout_svc_volumes }
