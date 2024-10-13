@@ -1,5 +1,5 @@
 # Start by building the application.
-FROM golang:1.21.1 AS build
+FROM golang:1.22-alpine3.19 AS build
 LABEL stage=dockerbuilder
 WORKDIR /app
 
