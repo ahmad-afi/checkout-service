@@ -30,7 +30,7 @@ func HTTPRouteInit(containerConf *container.Container) {
 		SkipURIs:    []string{"/"},
 	}))
 
-	setupRouter(app, *containerConf)
+	SetupRouter(app, *containerConf)
 
 	// Start server
 	port := fmt.Sprintf("%s:%d", containerConf.Apps.Host, containerConf.Apps.HttpPort)

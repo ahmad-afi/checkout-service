@@ -17,7 +17,7 @@ func NewPromotionDomain(pg *sqlx.DB, transaction utils.SQLTransaction) Promotion
 }
 
 func (d *PromotionDomain) GetListPromotion(ctx context.Context) (res []PromotionEntity, err error) {
-	query := `select p.id,p.name, p.type, p.description, p.promotiondetail, p.created_at, p.updated_at from promotions where deleted_at is null p order by name`
+	query := `select p.id,p.name, p.type, p.description, p.promotiondetail, p.created_at, p.updated_at from promotions p where deleted_at is null order by name`
 	err = d.pg.SelectContext(ctx, &res, query)
 	return
 }

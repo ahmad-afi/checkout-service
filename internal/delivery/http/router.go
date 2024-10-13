@@ -8,7 +8,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-func setupRouter(f *fiber.App, cont container.Container) {
+func SetupRouter(f *fiber.App, cont container.Container) {
 	h := handler.SetupHandler(cont)
 
 	f.Get("", healthCheck)
