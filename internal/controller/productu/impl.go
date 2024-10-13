@@ -16,7 +16,7 @@ func NewProductController(productRepo productd.ProductRepo) ProductUsc {
 }
 
 func (u *ProductController) GetListProduct(ctx context.Context) (res []GetListProduct, err error) {
-	resOrders, err := u.productRepo.GetListProduct(ctx)
+	resOrders, err := u.productRepo.GetListProduct(ctx, nil)
 	if err != nil {
 		log.Println("error at GetOrder : ", err.Error())
 		return

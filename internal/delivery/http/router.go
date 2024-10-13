@@ -18,6 +18,10 @@ func setupRouter(f *fiber.App, cont container.Container) {
 	{
 		productGroup.Get("", h.ProductHandler.GetProductList)
 	}
+	promotionGroup := v1api.Group("/promotion")
+	{
+		promotionGroup.Get("", h.PromotionHandler.GetPromotionList)
+	}
 	orderGroup := v1api.Group("/order")
 	{
 		orderGroup.Post("/check", h.OrderHandler.CheckOrder)

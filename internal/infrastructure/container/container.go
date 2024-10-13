@@ -14,17 +14,20 @@ import (
 
 	"checkout-service/internal/domain/orderd"
 	"checkout-service/internal/domain/productd"
+	"checkout-service/internal/domain/promotiond"
 
 	"checkout-service/internal/usecase/orderu"
 	"checkout-service/internal/usecase/productu"
+	"checkout-service/internal/usecase/promotionu"
 )
 
 type (
 	Container struct {
-		Apps       Apps
-		Logger     Logger
-		OrderUsc   orderu.OrderUsc
-		ProductUsc productu.ProductUsc
+		Apps         Apps
+		Logger       Logger
+		OrderUsc     orderu.OrderUsc
+		ProductUsc   productu.ProductUsc
+		PromotionUsc promotionu.PromotionUsc
 	}
 
 	Logger struct {
@@ -70,15 +73,18 @@ func NewContainer() *Container {
 	sqlTrx := utils.NewSQLTransaction(postgre)
 	orderRepo := orderd.NewOrderDomain(postgre, sqlTrx)
 	productRepo := productd.NewProductDomain(postgre)
+	promotionRepo := promotiond.NewPromotionDomain(postgre, sqlTrx)
 
-	orderUsc := orderu.NewOrderUsecase(orderRepo, productRepo)
+	orderUsc := orderu.NewOrderUsecase(orderRepo, productRepo, promotionRepo)
 	productUsc := productu.NewProductUsecase(productRepo)
+	promotionUsc := promotionu.NewPromotionUsecase(promotionRepo)
 
 	cont := Container{
-		Apps:       appsConf,
-		OrderUsc:   orderUsc,
-		ProductUsc: productUsc,
-		Logger:     LoggerInit(),
+		Apps:         appsConf,
+		OrderUsc:     orderUsc,
+		ProductUsc:   productUsc,
+		Logger:       LoggerInit(),
+		PromotionUsc: promotionUsc,
 	}
 
 	return &cont

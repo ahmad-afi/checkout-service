@@ -24,7 +24,7 @@ func (h *orderHandler) CheckOrder(ctx *fiber.Ctx) error {
 
 	res, err := h.orderusc.CheckOrder(ctx.Context(), *data)
 	if err != nil {
-		return helper.BuildResponse(ctx, false, err.Err.Error(), nil, err.Code)
+		return helper.BuildResponse(ctx, false, err.Message, nil, err.Code)
 	}
 
 	return helper.BuildResponse(ctx, true, helper.SUCCEEDPOSTDATA, res, http.StatusOK)
@@ -39,16 +39,16 @@ func (h *orderHandler) CreateOrder(ctx *fiber.Ctx) error {
 
 	res, err := h.orderusc.CreateOrder(ctx.Context(), *data)
 	if err != nil {
-		return helper.BuildResponse(ctx, false, err.Err.Error(), nil, err.Code)
+		return helper.BuildResponse(ctx, false, err.Message, nil, err.Code)
 	}
 
-	return helper.BuildResponse(ctx, true, helper.SUCCEEDPOSTDATA, res, http.StatusOK)
+	return helper.BuildResponse(ctx, true, helper.SUCCEEDPOSTDATA, res, http.StatusCreated)
 }
 
 func (h *orderHandler) HistoryOrder(ctx *fiber.Ctx) error {
 	res, err := h.orderusc.HistoryOrder(ctx.Context())
 	if err != nil {
-		return helper.BuildResponse(ctx, false, err.Err.Error(), nil, err.Code)
+		return helper.BuildResponse(ctx, false, err.Message, nil, err.Code)
 	}
 
 	return helper.BuildResponse(ctx, true, helper.SUCCEEDPOSTDATA, res, http.StatusOK)
@@ -61,7 +61,7 @@ func (h *orderHandler) OrderDetail(ctx *fiber.Ctx) error {
 	}
 	res, err := h.orderusc.OrderDetail(ctx.Context(), orderid)
 	if err != nil {
-		return helper.BuildResponse(ctx, false, err.Err.Error(), nil, err.Code)
+		return helper.BuildResponse(ctx, false, err.Message, nil, err.Code)
 	}
 
 	return helper.BuildResponse(ctx, true, helper.SUCCEEDPOSTDATA, res, http.StatusOK)

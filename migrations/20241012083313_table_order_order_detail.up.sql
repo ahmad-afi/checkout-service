@@ -2,6 +2,8 @@ CREATE TABLE orders (
     id VARCHAR(26) PRIMARY KEY,
     order_date TIMESTAMP DEFAULT NOW(),
     total_amount DECIMAL(10, 2) NOT NULL,
+    original_amount DECIMAL(10, 2) NOT NULL,
+    total_discount DECIMAL(10, 2) NOT NULL,
     deleted_at timestamp with time zone,
     created_at timestamp with time zone default CURRENT_TIMESTAMP not null,
     updated_at timestamp with time zone default CURRENT_TIMESTAMP not null
