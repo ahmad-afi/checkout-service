@@ -11,7 +11,6 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: checkout_svc
 
 jobs:
   build-image:
@@ -43,4 +42,4 @@ jobs:
         with:
           context: .
           push: ${{ github.event_name != 'pull_request' }} # Don't push on PR
-          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+          tags: ${{ env.REGISTRY }}/${{ github.repository }}:${{ github.sha }}
