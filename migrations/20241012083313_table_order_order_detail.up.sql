@@ -18,6 +18,7 @@ CREATE TABLE order_items (
     qty INT NOT NULL,
     price DECIMAL(10, 2) NOT NULL,
     discount DECIMAL(10, 2) NOT NULL,
+    total_amount DECIMAL(10, 2) NOT NULL,
     deleted_at timestamp with time zone,
     created_at timestamp with time zone default CURRENT_TIMESTAMP not null,
     updated_at timestamp with time zone default CURRENT_TIMESTAMP not null

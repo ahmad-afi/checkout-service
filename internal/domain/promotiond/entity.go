@@ -42,7 +42,7 @@ type DiscountPromotion struct {
 
 // ProductPromotion represents the product_promotions table
 type ProductPromotionEntity struct {
-	ID          int       `json:"id" db:"id"`
+	ID          string    `json:"id" db:"id"`
 	PromotionID string    `json:"promotion_id" db:"promotion_id"`
 	ProductID   string    `json:"product_id" db:"product_id"`
 	CreatedAt   time.Time `json:"created_at" db:"created_at"`
@@ -57,9 +57,10 @@ type ProductPromotionEntity struct {
 
 // OrderPromotion represents the order_promotions table
 type OrderPromotionEntity struct {
-	ID          int       `json:"id" db:"id"`
+	ID          string    `json:"id" db:"id"`
 	PromotionID string    `json:"promotion_id" db:"promotion_id"`
 	OrderID     string    `json:"order_id" db:"order_id"`
+	Name        string    `json:"name" db:"name"`       // Additional reference data as text
 	RefData     string    `json:"refdata" db:"refdata"` // Additional reference data as text
 	CreatedAt   time.Time `json:"created_at" db:"created_at"`
 	UpdatedAt   time.Time `json:"updated_at" db:"updated_at"`

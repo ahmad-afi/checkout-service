@@ -28,8 +28,8 @@ type OrderDataRes struct {
 }
 
 type OrderHistory struct {
-	ID             string    `json:"id" db:"id"`
-	OrderDate      time.Time `json:"orderDate" db:"order_date"`
+	ID             string    `json:"id"`
+	OrderDate      time.Time `json:"orderDate"`
 	OriginalAmount float64   `json:"originalAmount"`
 	TotalAmount    float64   `json:"totalAmount"`
 	TotalDiscount  float64   `json:"totalDiscount"`
@@ -42,14 +42,15 @@ type OrderDetail struct {
 }
 
 type OrderDetailItem struct {
-	ID        string  `json:"id" db:"id"`
-	OrderID   string  `json:"order_id" db:"order_id"`
-	ProductID string  `json:"product_id" db:"product_id"`
-	SKU       string  `db:"sku" json:"sku"`
-	Name      string  `db:"name" json:"name"`
-	Qty       int     `json:"qty" db:"qty"`
-	Price     float64 `db:"price" json:"price"`
-	Discount  float64 `json:"discount" db:"discount"`
+	ID          string  `json:"id"`
+	OrderID     string  `json:"order_id"`
+	ProductID   string  `json:"product_id"`
+	SKU         string  `json:"sku"`
+	Name        string  `json:"name"`
+	Qty         int     `json:"qty"`
+	Price       float64 `json:"price"`
+	Discount    float64 `json:"discount"`
+	TotalAmount float64 `json:"total_amount"`
 }
 
 type mapProduct struct {

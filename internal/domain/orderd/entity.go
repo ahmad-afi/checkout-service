@@ -13,14 +13,15 @@ type OrderEntity struct {
 }
 
 type OrderItemEntity struct {
-	ID        string    `json:"id" db:"id"`
-	OrderID   string    `json:"order_id" db:"order_id"`
-	ProductID string    `json:"product_id" db:"product_id"`
-	SKU       string    `db:"sku" json:"sku"`
-	Name      string    `db:"name" json:"name"`
-	Qty       int       `json:"qty" db:"qty"`
-	Price     float64   `db:"price" json:"price"`
-	Discount  float64   `json:"discount" db:"discount"`
-	CreatedAt time.Time `json:"createdAt" db:"created_at"`
-	UpdatedAt time.Time `json:"updatedAt" db:"updated_at"`
+	ID          string    `db:"id"`
+	OrderID     string    `db:"order_id"`
+	ProductID   string    `db:"product_id" `
+	SKU         string    `db:"sku"`
+	Name        string    `db:"name"`
+	Qty         int       `db:"qty"`
+	Price       float64   `db:"price"`
+	TotalAmount float64   `db:"total_amount"`
+	Discount    float64   `db:"discount"`
+	CreatedAt   time.Time `db:"created_at"`
+	UpdatedAt   time.Time `db:"updated_at"`
 }

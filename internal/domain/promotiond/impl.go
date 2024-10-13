@@ -17,7 +17,7 @@ func NewPromotionDomain(pg *sqlx.DB, transaction utils.SQLTransaction) Promotion
 }
 
 func (d *PromotionDomain) GetListPromotion(ctx context.Context) (res []PromotionEntity, err error) {
-	query := `select p.id,p.name, p.type, p.description, p.promotiondetail, p.created_at, p.updated_at from promotions p order by name`
+	query := `select p.id,p.name, p.type, p.description, p.promotiondetail, p.created_at, p.updated_at from promotions where deleted_at is null p order by name`
 	err = d.pg.SelectContext(ctx, &res, query)
 	return
 }
@@ -43,8 +43,33 @@ func (d *PromotionDomain) GetListPromotionByProductID(ctx context.Context, listP
 	return
 }
 
-// func (d *PromotionDomain) GetPromotionItemsByPromotionID(ctx context.Context, PromotionID string) (res []PromotionItemEntity, err error) {
-// 	query := `select id, Promotion_id, product_id, sku, name, qty, price, discount, created_at, updated_at from Promotion_items where deleted_at is null and Promotion_id = $1 Promotion by name`
-// 	err = d.pg.SelectContext(ctx, &res, query, PromotionID)
-// 	return
-// }
+func (d *PromotionDomain) InsertBatchOrderPromotion(ctx context.Context, tx *sqlx.Tx, params []OrderPromotionEntity) (err error) {
+	_, err = tx.NamedExecContext(ctx, `
+	INSERT INTO order_promotions (
+		id, 
+		promotion_id, 
+		order_id, 
+		name, 
+		refdata
+	) VALUES (
+		:id, 
+		:promotion_id, 
+		:order_id, 
+		:name, 
+		:refdata
+	)`, params)
+	return
+}
+
+func (d *PromotionDomain) GetListOrderPromotion(ctx context.Context, orderid string) (res []OrderPromotionEntity, err error) {
+	query := `select id, 
+	promotion_id, 
+	order_id, 
+	name, 
+	refdata, 
+	created_at, 
+	updated_at
+	from order_promotions p where deleted_at is null and order_id = $1 order by name`
+	err = d.pg.SelectContext(ctx, &res, query, orderid)
+	return
+}

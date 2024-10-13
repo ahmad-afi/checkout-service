@@ -17,12 +17,14 @@ func NewOrderDomain(pg *sqlx.DB, transaction utils.SQLTransaction) OrderRepo {
 }
 
 func (d *OrderDomain) CreateOrder(ctx context.Context, tx *sqlx.Tx, params OrderEntity) (err error) {
-	_, err = tx.NamedExecContext(ctx, `INSERT INTO orders (id, order_date, total_amount, original_amount, total_discount) VALUES(:id, :order_date, :total_amount, :original_amount, :total_discount)`, params)
+	_, err = tx.NamedExecContext(ctx, `INSERT INTO orders (id, order_date, total_amount, original_amount, total_discount) 
+	VALUES(:id, :order_date, :total_amount, :original_amount, :total_discount)`, params)
 	return
 }
 
 func (d *OrderDomain) CreateOrderItems(ctx context.Context, tx *sqlx.Tx, params []OrderItemEntity) (err error) {
-	_, err = tx.NamedExecContext(ctx, `INSERT INTO order_items (id, order_id, product_id, sku, name, qty, price, discount) VALUES(:id, :order_id, :product_id, :sku, :name, :qty, :price, :discount)`, params)
+	_, err = tx.NamedExecContext(ctx, `INSERT INTO order_items (id, order_id, product_id, sku, name, qty, price, discount, total_amount) 
+	VALUES(:id, :order_id, :product_id, :sku, :name, :qty, :price, :discount, :total_amount)`, params)
 	return
 }
 
@@ -46,7 +48,7 @@ func (d *OrderDomain) GetHistoryOrder(ctx context.Context, id string) (res []Ord
 }
 
 func (d *OrderDomain) GetOrderItemsByOrderID(ctx context.Context, orderID string) (res []OrderItemEntity, err error) {
-	query := `select id, order_id, product_id, sku, name, qty, price, discount, created_at, updated_at from order_items where deleted_at is null and order_id = $1 order by name`
+	query := `select id, order_id, product_id, sku, name, qty, price, discount, total_amount, created_at, updated_at from order_items where deleted_at is null and order_id = $1 order by name`
 	err = d.pg.SelectContext(ctx, &res, query, orderID)
 	return
 }
