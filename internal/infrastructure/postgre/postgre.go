@@ -9,11 +9,11 @@ import (
 )
 
 type Config struct {
-	Host      string `env:"POSTGRES_HOST"`
-	Port      int    `env:"POSTGRES_PORT"`
-	Ordername string `env:"POSTGRES_USER"`
-	Password  string `env:"POSTGRES_PASSWORD"`
-	DbName    string `env:"POSTGRES_DB"`
+	Host     string `env:"POSTGRES_HOST"`
+	Port     int    `env:"POSTGRES_PORT"`
+	Username string `env:"POSTGRES_USER"`
+	Password string `env:"POSTGRES_PASSWORD"`
+	DbName   string `env:"POSTGRES_DB"`
 
 	// 	MaxLifetime        int    `env:"MYSQL_maxLifetime"`
 	// 	MinIdleConnections int    `env:"MYSQL_minIdleConnections"`
@@ -24,15 +24,15 @@ func Init() (*sqlx.DB, error) {
 	var db *sqlx.DB
 
 	var cfg = Config{
-		Host:      utils.EnvString("POSTGRES_HOST"),
-		Port:      utils.EnvInt("POSTGRES_PORT"),
-		Ordername: utils.EnvString("POSTGRES_USER"),
-		Password:  utils.EnvString("POSTGRES_PASSWORD"),
-		DbName:    utils.EnvString("POSTGRES_DB"),
+		Host:     utils.EnvString("POSTGRES_HOST"),
+		Port:     utils.EnvInt("POSTGRES_PORT"),
+		Username: utils.EnvString("POSTGRES_USER"),
+		Password: utils.EnvString("POSTGRES_PASSWORD"),
+		DbName:   utils.EnvString("POSTGRES_DB"),
 	}
 
 	dsn := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable",
-		cfg.Host, cfg.Port, cfg.Ordername, cfg.Password, cfg.DbName)
+		cfg.Host, cfg.Port, cfg.Username, cfg.Password, cfg.DbName)
 
 	db, err := sqlx.Open("postgres", dsn)
 	if err != nil {

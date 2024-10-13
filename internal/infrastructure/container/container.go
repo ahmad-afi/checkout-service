@@ -47,8 +47,13 @@ type (
 	}
 )
 
-func NewContainer() *Container {
-	err := godotenv.Load(fmt.Sprintf("%s/%s", helper.ProjectRootPath, ".env"))
+func NewContainer(envName ...string) *Container {
+	if envName == nil {
+		envName = append(envName, ".env")
+	}
+	env := envName[0]
+
+	err := godotenv.Load(fmt.Sprintf("%s/%s", helper.ProjectRootPath, env))
 	if err != nil {
 		panic(err)
 	}

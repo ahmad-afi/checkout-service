@@ -18,8 +18,16 @@ import (
 var app *fiber.App
 
 func TestMain(m *testing.M) {
-	cont := container.NewContainer()
+	InitDocketTest()
+	cont := container.NewContainer(".env.test")
+	InitRest(cont)
+	m.Run()
 
+	ClearingDocker()
+	fmt.Println("remove test container succed")
+}
+
+func InitRest(cont *container.Container) {
 	app = fiber.New(fiber.Config{
 		// Views: engine,
 		ErrorHandler: func(ctx *fiber.Ctx, err error) error {
@@ -52,7 +60,6 @@ func TestMain(m *testing.M) {
 	})
 
 	delivery.SetupRouter(app, *cont)
-	m.Run()
 }
 
 func TestHealth(t *testing.T) {
@@ -65,4 +72,8 @@ func TestHealth(t *testing.T) {
 	assert.Nil(t, err)
 	fmt.Println("bytes", string(bytes))
 	// assert.Equal(t, "Hello World", string(bytes))
+}
+
+func TestDockerTest(t *testing.T) {
+	fmt.Println("Success")
 }
