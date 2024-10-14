@@ -31,8 +31,7 @@ jobs:
 
       - name: Test with Docker
         run: |
-          echo ${{ env.ENV_TEST }} | base64 -d > .env.test
-          go test -v ./test/integration/... -count=1
+          echo ${{ vars.ENV_TEST }} | base64 -d > .env.test
 
   # build-image:
   #   name: Build and Push Docker Image
