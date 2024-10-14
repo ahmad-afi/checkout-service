@@ -13,9 +13,32 @@ env:
   REGISTRY: ghcr.io
 
 jobs:
+  test:
+    runs-on: ubuntu-latest
+    services:
+      dind:
+        image: docker:23.0-rc-dind-rootless
+        ports:
+          - 2375:2375
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: "1.22"
+
+      - name: Test with Docker
+        run:
+          echo ${{ env.ENV_TEST }}
+          # go test -v ./...
+
   build-image:
     name: Build and Push Docker Image
     runs-on: ubuntu-latest
+    needs:
+      - test
     permissions:
       contents: read
       packages: write
