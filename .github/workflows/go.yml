@@ -14,6 +14,7 @@ env:
 
 jobs:
   test:
+    name: Integration Testing
     runs-on: ubuntu-latest
     services:
       dind:
